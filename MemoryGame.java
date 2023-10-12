@@ -18,9 +18,9 @@ public class MemoryGame extends JFrame {
 
 
     public MemoryGame(int gridSize) {
-        this.gridSize = this.gridSize;
+        this.gridSize = gridSize;
         setTitle("Picture Memory Game");
-        setSize(2000, 2000);
+        setSize(4000, 4000);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         imagePaths = new ArrayList<>();
@@ -39,7 +39,7 @@ public class MemoryGame extends JFrame {
         for (int i = 0; i < cardButtons.length; i++) {
             final int index = i;
             cardButtons[i] = new JButton();
-            cardButtons[i].setIcon(new ImageIcon("cardback.png"));
+            cardButtons[i].setIcon(new ImageIcon("cardsback.png"));
             cardButtons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -77,10 +77,7 @@ public class MemoryGame extends JFrame {
         imagePaths.add("strawberry.png");
         imagePaths.add("mango.png");
         imagePaths.add("orange.png");
-        // Add your image paths here for the specified grid size
-        // You should ensure you have enough images for the selected grid size
-        // Example: imagePaths.add("image1.png");
-        // ...
+
 
         // Shuffle the image paths
         Collections.shuffle(imagePaths);
@@ -114,8 +111,8 @@ public class MemoryGame extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     // Hide the cards after 5 seconds
-                    cardButtons[firstCardIndex].setIcon(new ImageIcon("cardback.png"));
-                    cardButtons[secondCardIndex].setIcon(new ImageIcon("cardback.png"));
+                    cardButtons[firstCardIndex].setIcon(new ImageIcon("cardsback.png"));
+                    cardButtons[secondCardIndex].setIcon(new ImageIcon("cardsback.png"));
                     firstCardIndex = -1;
                     secondCardIndex = -1;
                 }
@@ -124,8 +121,8 @@ public class MemoryGame extends JFrame {
             timer.start();
 
             if (imagePaths.get(firstCardIndex).equals(imagePaths.get(secondCardIndex))) {
-                cardButtons[firstCardIndex].setIcon(new ImageIcon("blue.png"));
-                cardButtons[secondCardIndex].setIcon(new ImageIcon("blue.png"));
+                cardButtons[firstCardIndex].setIcon(new ImageIcon("check.png"));
+                cardButtons[secondCardIndex].setIcon(new ImageIcon("check.png"));
                 cardImages.set(firstCardIndex, null);
                 cardImages.set(secondCardIndex, null);
                 numberOfMatches++;
