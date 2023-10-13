@@ -10,7 +10,7 @@ public class MemoryGame extends JFrame {
     private ArrayList<String> cardImages;
     private JButton[] cardButtons;
     private int numberOfMatches;
-    private int firstCardIndex;
+    private int firstCardIndex = -1;
     private int secondCardIndex;
     private int moves;
     private Timer timer;
@@ -121,8 +121,8 @@ public class MemoryGame extends JFrame {
             timer.start();
 
             if (imagePaths.get(firstCardIndex).equals(imagePaths.get(secondCardIndex))) {
-                cardButtons[firstCardIndex].setIcon(new ImageIcon("check.png"));
-                cardButtons[secondCardIndex].setIcon(new ImageIcon("check.png"));
+                cardButtons[firstCardIndex].setIcon(null);
+                cardButtons[secondCardIndex].setIcon(null);
                 cardImages.set(firstCardIndex, null);
                 cardImages.set(secondCardIndex, null);
                 numberOfMatches++;
@@ -134,6 +134,7 @@ public class MemoryGame extends JFrame {
             }
         }
     }
+
     private void resetGame() {
         // Reset the game by creating a new MemoryGame instance
         // You can also provide an option for the user to start a new game
