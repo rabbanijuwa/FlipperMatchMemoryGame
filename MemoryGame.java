@@ -20,7 +20,7 @@ public class MemoryGame extends JFrame {
     public MemoryGame(int gridSize) {
         this.gridSize = gridSize;
         setTitle("Picture Memory Game");
-        setSize(4000, 4000);
+        setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         imagePaths = new ArrayList<>();
@@ -57,36 +57,24 @@ public class MemoryGame extends JFrame {
         imagePaths.add("peach.png");
         imagePaths.add("grapes.png");
         imagePaths.add("pineapple.png");
-        imagePaths.add("watermelon.png");
         imagePaths.add("orangejuice.png");
-        imagePaths.add("lemon.png");
-        imagePaths.add("banana.png");
-        imagePaths.add("apple.png");
         imagePaths.add("strawberry.png");
-        imagePaths.add("mango.png");
-        imagePaths.add("orange.png");
         imagePaths.add("avacado.png");
         imagePaths.add("peach.png");
         imagePaths.add("grapes.png");
         imagePaths.add("pineapple.png");
-        imagePaths.add("watermelon.png");
         imagePaths.add("orangejuice.png");
-        imagePaths.add("lemon.png");
-        imagePaths.add("banana.png");
-        imagePaths.add("apple.png");
         imagePaths.add("strawberry.png");
-        imagePaths.add("mango.png");
-        imagePaths.add("orange.png");
 
+        imagePaths.addAll(imagePaths);
 
         // Shuffle the image paths
         Collections.shuffle(imagePaths);
-        Collections.shuffle(cardImages);
     }
     private void initializeCardImages() {
         // Initialize cardImages based on the grid size
         for (int i = 0; i < gridSize; i++) {
-            cardImages.add("");
+            cardImages.add(imagePaths.get(i));
         }
         Collections.shuffle(cardImages);
     }
@@ -110,28 +98,29 @@ public class MemoryGame extends JFrame {
             timer = new Timer(5000, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Hide the cards after 5 seconds
-                    cardButtons[firstCardIndex].setIcon(new ImageIcon("cardsback.png"));
-                    cardButtons[secondCardIndex].setIcon(new ImageIcon("cardsback.png"));
+                    if (imagePaths.get(firstCardIndex).equals(imagePaths.get(secondCardIndex))) {
+                        cardButtons[firstCardIndex].setIcon(null);
+                        cardButtons[secondCardIndex].setIcon(null);
+                        cardImages.set(firstCardIndex, null);
+                        cardImages.set(secondCardIndex, null);
+                        numberOfMatches++;
+
+                        if (gridSize == 12 && numberOfMatches == 6) {
+                            JOptionPane.showMessageDialog(null, "Congratulations! You've won in " + moves + " moves!");
+                            resetGame();
+                        } else if (gridSize == 24 && numberOfMatches == 12) {
+                            JOptionPane.showMessageDialog(null, "Congratulations! You've won in " + moves + " moves!");
+                            resetGame();
+                        }
+                    }else {
+                        cardButtons[firstCardIndex].setIcon(new ImageIcon("cardsback.png"));
+                        cardButtons[secondCardIndex].setIcon(new ImageIcon("cardsback.png"));
+                    }
                     firstCardIndex = -1;
-                    secondCardIndex = -1;
                 }
             });
             timer.setRepeats(false);
             timer.start();
-
-            if (imagePaths.get(firstCardIndex).equals(imagePaths.get(secondCardIndex))) {
-                cardButtons[firstCardIndex].setIcon(null);
-                cardButtons[secondCardIndex].setIcon(null);
-                cardImages.set(firstCardIndex, null);
-                cardImages.set(secondCardIndex, null);
-                numberOfMatches++;
-
-                if (numberOfMatches == gridSize / 2) {
-                    JOptionPane.showMessageDialog(null, "Congratulations! You've won in " + moves + " moves!");
-                    resetGame();
-                }
-            }
         }
     }
 
