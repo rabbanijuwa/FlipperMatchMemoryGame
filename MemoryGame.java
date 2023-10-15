@@ -15,6 +15,9 @@ public class MemoryGame extends JFrame {
     private int moves;
     private Timer timer;
     private int gridSize;
+    private long startTime; // variable to store start time
+
+
 
 
     public MemoryGame(int gridSize) {
@@ -22,6 +25,7 @@ public class MemoryGame extends JFrame {
         setTitle("Picture Memory Game");
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        startTime = System.currentTimeMillis();
 
         imagePaths = new ArrayList<>();
         cardImages = new ArrayList<>();
@@ -106,10 +110,14 @@ public class MemoryGame extends JFrame {
                         numberOfMatches++;
 
                         if (gridSize == 12 && numberOfMatches == 6) {
-                            JOptionPane.showMessageDialog(null, "Congratulations! You've won in " + moves + " moves!");
+                            long endTime = System.currentTimeMillis(); // Record the end time
+                            long timePlayed = (endTime - startTime) / 1000; // Calculate the total time played in seconds
+                            JOptionPane.showMessageDialog(null, "Congratulations! You've won in " + moves + " moves and " + timePlayed + " seconds!");
                             resetGame();
                         } else if (gridSize == 24 && numberOfMatches == 12) {
-                            JOptionPane.showMessageDialog(null, "Congratulations! You've won in " + moves + " moves!");
+                            long endTime = System.currentTimeMillis(); // Record the end time
+                            long timePlayed = (endTime - startTime) / 1000; // Calculate the total time played in seconds
+                            JOptionPane.showMessageDialog(null, "Congratulations! You've won in " + moves + " moves and " + timePlayed + " seconds!");
                             resetGame();
                         }
                     }else {
